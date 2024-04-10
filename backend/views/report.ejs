@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cumulative Report</title>
+    <style>
+        .dashboard-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .dashboard-box {
+            flex: 1;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-box h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .dashboard-box p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cumulative Report</h1>
+    
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Last Received Date Dashboard Box -->
+        <div class="dashboard-box">
+            <h2>Last Received Date</h2>
+            <p><%= data.lastReceivedDate %></p>
+        </div>
+
+        <!-- Cumulative Flow Dashboard Box -->
+        <div class="dashboard-box">
+            <h2>Cumulative Flow</h2>
+            <p><%= data.cumulativeFlow %></p>
+        </div>
+    </div>
+    <!-- End Dashboard Container -->
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Flow Difference</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.dailyFlows.forEach(row => { %>
+                <tr>
+                    <td><%= row.date %></td>
+                    <td><%= row.flowDifference %></td>
+                </tr>
+            <% }); %>
+            <tr>
+                <td><strong>Total Flow Difference</strong></td>
+                <td><%= data.totalFlowDifference %></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <a href="/downloadExcelReport/<%= startDate %>/<%= endDate %>/<%= mobileNumber %>">Download Excel Report</a>
+</body>
+</html>
